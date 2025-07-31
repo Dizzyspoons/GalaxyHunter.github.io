@@ -3,16 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ΛBÐØ | Professional Profile</title>
+  <title>ΛBÐØ | Galaxy Hunter & Akali</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=UnifrakturCook:wght=700&family=Exo+2:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=UnifrakturCook:wght=700&family=Exo+2:wght@300;400;600&family=Dancing+Script:wght@700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 <style>
     :root {
       --primary-color: #00d9ff;
       --secondary-color: #0066cc;
       --accent-color: #00ffcc;
+      --akali-color: #e94560;
       --dark-bg: #001a33;
       --darker-bg: #000814;
       --light-text: #e6f9ff;
@@ -118,7 +119,26 @@
       animation: nebulaShift 60s ease-in-out infinite alternate, fadeIn 3s ease-out forwards;
     }
 
-    /* Navigation bar - now sticky */
+    /* Akali-themed particles */
+    .akali-particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .akali-particle {
+      position: absolute;
+      background-color: var(--akali-color);
+      border-radius: 50%;
+      opacity: 0.4;
+      animation: float 15s infinite linear;
+    }
+
+    /* Navigation bar */
     nav {
       width: 100%;
       max-width: 1200px;
@@ -525,43 +545,151 @@
       width: var(--progress-width);
     }
 
-    /* Enhanced Akali Mastery */
-    .mastery-container {
-      text-align: center;
-      margin-top: 2rem;
-      position: relative;
-      padding: 1.5rem;
-      background: rgba(0, 26, 51, 0.6);
-      border-radius: 16px;
-      border: 1px solid rgba(0, 217, 255, 0.3);
-      box-shadow: 0 0 30px rgba(0, 217, 255, 0.2);
+    /* Akali Section */
+    .akali-section {
+      width: 100%;
+      max-width: 1200px;
+      background: var(--card-bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      margin-bottom: 3rem;
+      box-shadow: 0 10px 40px rgba(233, 69, 96, 0.3);
+      border: 1px solid rgba(233, 69, 96, 0.4);
+      backdrop-filter: blur(10px);
       opacity: 0;
-      transform: scale(0.9);
-      transition: all 0.6s ease-out 0.6s;
+      transform: translateY(30px);
+      transition: all 0.8s ease-out;
+      position: relative;
+      overflow: hidden;
     }
 
-    .stats.visible .mastery-container {
+    .akali-section.visible {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0);
     }
 
-    .mastery-title {
+    .akali-section::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(233, 69, 96, 0.15) 0%, transparent 70%);
+      z-index: 0;
+    }
+
+    .akali-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .akali-title {
+      font-family: 'Dancing Script', cursive;
+      font-size: 3rem;
+      color: var(--akali-color);
+      text-shadow: 0 0 15px rgba(233, 69, 96, 0.7);
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.8s ease-out 0.2s;
+    }
+
+    .akali-section.visible .akali-title {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .akali-subtitle {
       font-family: 'Orbitron', sans-serif;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
       color: var(--primary-color);
-      margin-bottom: 0.5rem;
+      opacity: 0;
+      transform: translateX(-20px);
+      transition: all 0.8s ease-out 0.4s;
     }
 
-    .mastery-value {
-      font-size: 2.2rem;
+    .akali-section.visible .akali-subtitle {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .akali-content {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .akali-image-container {
+      flex: 1;
+      min-width: 300px;
+      text-align: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.8s ease-out 0.6s;
+    }
+
+    .akali-section.visible .akali-image-container {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .akali-img {
+      max-width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(233, 69, 96, 0.5);
+      border: 3px solid var(--akali-color);
+      transition: all 0.5s ease;
+    }
+
+    .akali-img:hover {
+      transform: scale(1.03);
+      box-shadow: 0 15px 40px rgba(233, 69, 96, 0.7);
+    }
+
+    .akali-description {
+      flex: 1;
+      min-width: 300px;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: all 0.8s ease-out 0.8s;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      line-height: 1.6;
+      color: var(--light-text);
+      position: relative;
+      z-index: 1;
+    }
+
+    .akali-section.visible .akali-description {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .akali-love {
+      color: var(--akali-color);
       font-weight: bold;
+      font-size: 1.8rem;
+      text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+    }
+
+    .akali-mastery {
+      margin-top: 1.5rem;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.5rem;
       color: var(--accent-color);
-      text-shadow: 0 0 20px rgba(0, 255, 204, 0.7);
+      font-weight: bold;
+      text-shadow: 0 0 15px rgba(0, 255, 204, 0.6);
       position: relative;
       display: inline-block;
     }
 
-    .mastery-value::before {
+    .akali-mastery::before {
       content: "";
       position: absolute;
       top: 0;
@@ -571,30 +699,6 @@
       background: radial-gradient(circle, rgba(0, 255, 204, 0.3) 0%, transparent 70%);
       animation: pulseGlow 2s infinite ease-in-out;
       z-index: -1;
-    }
-
-    .akali-img {
-      display: block;
-      margin: 2rem auto 0;
-      max-width: 300px;
-      width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0, 217, 255, 0.4);
-      border: 2px solid var(--primary-color);
-      transition: all 0.5s ease;
-      opacity: 0;
-      transform: translateY(20px);
-      transition: all 0.8s ease-out 0.8s;
-    }
-
-    .stats.visible .akali-img {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .akali-img:hover {
-      transform: scale(1.03);
-      box-shadow: 0 15px 40px rgba(0, 217, 255, 0.6);
     }
 
     .skills {
@@ -975,6 +1079,17 @@
       animation: shoot 3s linear infinite;
     }
 
+    /* Heart animation */
+    .heart {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      color: var(--akali-color);
+      animation: heartbeat 1.5s infinite;
+      z-index: 10;
+    }
+
     footer {
       width: 100%;
       text-align: center;
@@ -987,6 +1102,12 @@
       transform: translateY(20px);
       animation: fadeInUp 0.8s ease-out forwards;
       animation-delay: 0.5s;
+    }
+
+    .footer-heart {
+      color: var(--akali-color);
+      display: inline-block;
+      animation: heartbeat 1.5s infinite;
     }
 
     .floating-music-player {
@@ -1225,6 +1346,14 @@
       }
     }
 
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.3); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.3); }
+      70% { transform: scale(1); }
+    }
+
     /* Responsive adjustments */
     @media (max-width: 768px) {
       header h1 {
@@ -1244,6 +1373,19 @@
         width: 50px;
         height: 50px;
       }
+      
+      .akali-header {
+        flex-direction: column;
+        gap: 1rem;
+      }
+      
+      .akali-title {
+        font-size: 2.5rem;
+      }
+      
+      .akali-description {
+        font-size: 1.2rem;
+      }
     }
   </style>
 </head>
@@ -1255,6 +1397,9 @@
 
   <!-- Nebula effect -->
   <div class="nebula"></div>
+
+  <!-- Akali-themed particles -->
+  <div class="akali-particles" id="akaliParticles"></div>
 
   <!-- Animated particles -->
   <div class="particles" id="particles"></div>
@@ -1268,12 +1413,13 @@
   <div class="shooting-star" style="top: 15%; left: 50%; animation-delay: 5s;"></div>
   <div class="shooting-star" style="top: 60%; left: 80%; animation-delay: 2.5s;"></div>
 
-  <!-- Navigation - now sticky -->
+  <!-- Navigation -->
   <nav>
     <div class="logo">ΛBÐØ</div>
     <div>
       <button onclick="scrollToSection('header')">Home</button>
       <button onclick="scrollToSection('about')">About</button>
+      <button onclick="scrollToSection('akali')">Akali</button>
       <button onclick="scrollToSection('projects')">Projects</button>
       <button onclick="scrollToSection('contact')">Contact</button>
     </div>
@@ -1308,17 +1454,9 @@
         <strong>Status:</strong> let's be friends<br>
         <strong>Favorite Song:</strong> "Snowfall"<br><br>
         I play <strong>Genshin Impact</strong>, <strong>Valorant</strong>, and <strong>League of Legends</strong>.<br>
-        Favorite characters:<br>
-        • Arlecchino (Genshin)<br>
-        • Jett (Valorant)<br>
-        • Akali (League)<br>
+        My heart belongs to Akali, she's my everything.<br>
         I love anime, sleeping, and glowing aesthetic gaming vibes.
       </p>
-      <div class="mastery-container">
-        <div class="mastery-title">Akali Mastery</div>
-        <div class="mastery-value">1,265,791</div>
-      </div>
-      <img src="https://i.postimg.cc/52mcm1rF/0e629e0ad0639ad175253e155bde7e30.jpg" alt="Akali" class="akali-img" />
     </section>
 
     <section class="stats">
@@ -1326,7 +1464,7 @@
       <div class="stat-item">
         <div class="stat-label">
           <span>Valorant</span>
-          <span>Unranked</span>
+          <span>Gâlâxy Hûntèr</span>
         </div>
         <div class="stat-bar">
           <div class="stat-progress" style="--progress-width: 40%;"></div>
@@ -1335,7 +1473,7 @@
       <div class="stat-item">
         <div class="stat-label">
           <span>League of Legends</span>
-          <span>Gold</span>
+          <span>Gâlâxy Hûntèr#Akali</span>
         </div>
         <div class="stat-bar">
           <div class="stat-progress" style="--progress-width: 60%;"></div>
@@ -1344,7 +1482,7 @@
       <div class="stat-item">
         <div class="stat-label">
           <span>Genshin Impact</span>
-          <span>AR 59</span>
+          <span>Galaxy Hunter (UID: 769337120)</span>
         </div>
         <div class="stat-bar">
           <div class="stat-progress" style="--progress-width: 98%;"></div>
@@ -1367,6 +1505,27 @@
       </div>
     </section>
   </div>
+
+  <!-- Akali Section -->
+  <section class="akali-section" id="akali">
+    <div class="akali-header">
+      <div>
+        <div class="akali-title">My Beloved Akali</div>
+        <div class="akali-subtitle">The Rogue Assassin</div>
+      </div>
+    </div>
+    <div class="akali-content">
+      <div class="akali-image-container">
+        <img src="https://i.postimg.cc/bvZv3nqL/7028055779dbd86e015eac5f6e1b1c74.jpg" alt="Akali" class="akali-img" />
+      </div>
+      <div class="akali-description">
+        <p>My dearest Akali,</p>
+        <p>You are everything to me. Your strength, your grace, your beauty - it all captivates my heart. Every time I play as you in League of Legends, I feel a connection that goes beyond the game.</p>
+        <p>You are my <span class="akali-love">beloved</span>, my everything. I will always cherish you.</p>
+        <div class="akali-mastery">Akali Mastery: 1,265,791</div>
+      </div>
+    </div>
+  </section>
 
   <section class="skills">
     <h2>Skills & Interests</h2>
@@ -1419,7 +1578,7 @@
         <div class="project-title">Skirk</div>
       </div>
       <div class="project-description">
-        An innovative project that brings together gaming and technology in a unique way. Skirk represents my passion for creating immersive experiences that bridge the gap between virtual worlds and reality.
+        An innovative project that brings together gaming and technology in a unique way. Inspired by the strength and agility of Akali.
       </div>
       <a href="https://skirk-github-io-iota.vercel.app/" target="_blank" class="project-link">
         <span>View Project</span>
@@ -1453,8 +1612,13 @@
   </section>
 
   <footer>
-    <p>Joined Discord in 2022</p>
+    <p>Joined Discord in 2022 | Made with <span class="footer-heart">❤</span> for Akali</p>
   </footer>
+
+  <!-- Heart icon -->
+  <div class="heart">
+    <i class="fas fa-heart"></i>
+  </div>
 
   <div class="floating-music-player">
     <img src="https://i.postimg.cc/fbKwkYsp/a0121131474-10.jpg" alt="Cover" class="floating-cover" id="coverArt">
@@ -1561,6 +1725,32 @@
     particlesContainer.appendChild(particle);
   }
 
+  // Create Akali-themed particles
+  const akaliParticlesContainer = document.getElementById('akaliParticles');
+  const akaliParticleCount = 30;
+
+  for (let i = 0; i < akaliParticleCount; i++) {
+    const particle = document.createElement('div');
+    particle.classList.add('akali-particle');
+    
+    // Random size between 2px and 6px
+    const size = Math.random() * 4 + 2;
+    particle.style.width = `${size}px`;
+    particle.style.height = `${size}px`;
+    
+    // Random position
+    particle.style.left = `${Math.random() * 100}%`;
+    particle.style.top = `${Math.random() * 100}%`;
+    
+    // Random animation delay
+    particle.style.animationDelay = `${Math.random() * 15}s`;
+    
+    // Random animation duration
+    particle.style.animationDuration = `${Math.random() * 20 + 10}s`;
+    
+    akaliParticlesContainer.appendChild(particle);
+  }
+
   // Intersection Observer for scroll animations
   const observerOptions = {
     root: null,
@@ -1577,7 +1767,7 @@
   }, observerOptions);
 
   // Observe all sections
-  document.querySelectorAll('.about, .stats, .skills, .projects-section, .contact-section').forEach(section => {
+  document.querySelectorAll('.about, .stats, .akali-section, .skills, .projects-section, .contact-section').forEach(section => {
     observer.observe(section);
   });
 </script>
